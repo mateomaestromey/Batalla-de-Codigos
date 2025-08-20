@@ -1,0 +1,91 @@
+/* Layout principal */
+.layout{
+  display:grid;
+  grid-template-columns:1fr minmax(280px,520px) 1fr;
+  grid-template-areas:"left center right";
+  gap:18px; width:min(1200px,96vw); margin:18px auto; align-items:start;
+}
+.layout > aside:first-of-type{ grid-area:left; }
+.layout > main{ grid-area:center; }
+.layout > aside:last-of-type{ grid-area:right; }
+
+.panel{
+  background:linear-gradient(180deg,rgba(255,255,255,.02),transparent 60%),var(--panel);
+  border:1px solid var(--ring);border-radius:16px;padding:16px;box-shadow:0 18px 50px rgba(0,0,0,.35);min-height:200px
+}
+h2{margin:0 0 8px;font-size:18px;color:#dbe4ff}
+.history{max-height:70vh;overflow:auto;padding-right:4px}
+
+.tileRow{display:flex;gap:10px;align-items:center;flex-wrap:wrap;margin-top:8px}
+.digits{display:flex;gap:6px;flex-wrap:wrap}
+.digit{
+  width:44px;height:48px;border-radius:10px;display:grid;place-items:center;background:var(--tile);
+  color:#cbd5e1;font-weight:800;font-size:20px;letter-spacing:1px;border:1px solid rgba(255,255,255,.06)
+}
+.digits.win .digit{background:rgba(34,197,94,.08);color:#bbf7d0;border-color:rgba(34,197,94,.3)}
+.badge{font-size:12px;padding:6px 10px;border-radius:999px;border:1px solid rgba(255,255,255,.12);background:rgba(255,255,255,.04);color:#e5e7eb}
+
+.center{padding:20px;text-align:center}
+.turn{display:inline-flex;align-items:center;gap:8px;padding:8px 12px;border-radius:999px;border:1px solid var(--ring);background:rgba(255,255,255,.04);font-size:13px;color:#cbd5ff}
+.dot{width:9px;height:9px;border-radius:50%;background:var(--accent);box-shadow:0 0 12px var(--accent)}
+.status{margin-top:10px;padding:10px 12px;border-radius:10px;background:rgba(110,168,254,.08);border:1px solid rgba(110,168,254,.35)}
+input[type="text"]{
+  background:var(--tile);border:1px solid var(--ring);color:#e7ebf3;padding:14px 16px;border-radius:12px;
+  outline:none;width:220px;max-width:80vw;font-size:20px;letter-spacing:2px;text-align:center
+}
+.result{margin-top:14px}
+.winner,.draw,.reveal{padding:10px 12px;border-radius:10px;display:inline-block;font-weight:800}
+.winner{background:rgba(34,197,94,.1);border:1px solid rgba(34,197,94,.35);color:#bbf7d0}
+.draw{background:rgba(251,191,36,.1);border:1px solid rgba(251,191,36,.35);color:#fde68a}
+.reveal{background:rgba(251,191,36,.08);border:1px solid rgba(251,191,36,.35);color:#fde68a;margin-left:8px}
+.error{margin-top:10px;color:#fecaca;font-size:13px;display:none}
+
+/* Contador de turno */
+.timer{
+  position:relative; height:12px; border-radius:999px; overflow:hidden;
+  border:1px solid rgba(255,255,255,.12); background:rgba(255,255,255,.04);
+  margin:10px auto 0; width:min(420px,90%);
+}
+.timerBar{
+  position:absolute; left:0; top:0; bottom:0; width:0%;
+  background:linear-gradient(90deg,#4ade80,#22c55e); /* verde */
+  transition:width .25s linear;
+}
+#timerText{display:block;margin-top:6px;font-size:12px;color:#cbd5ff}
+
+/* Mobile: switches/colapsables */
+.mobile-toggles{display:none;gap:8px;justify-content:center;margin:8px 0 0}
+@media (max-width: 900px){
+  .layout{
+    grid-template-columns:1fr;
+    grid-template-areas:
+      "center"
+      "left"
+      "right";
+    gap:12px;
+  }
+  .panel{ min-height:unset; }
+  .history{ max-height:none; }
+  .mobile-toggles{display:flex}
+  .panel.hidden{display:none}
+  .collapser{display:flex;align-items:center;justify-content:space-between;gap:8px;cursor:pointer}
+  .caret{opacity:.7;transition:transform .2s ease}
+  .panel.collapsed .caret{transform:rotate(-90deg)}
+  .panel.collapsed .history{display:none}
+}
+@media (max-width: 480px){
+  .digit{ width:36px; height:40px; font-size:17px; }
+  .badge{ font-size:11px; }
+  .tileRow{ gap:8px; justify-content:space-between; }
+}
+
+/* Modal de ayuda */
+.modal{position:fixed;inset:0;background:rgba(0,0,0,.5);display:none;align-items:center;justify-content:center;padding:16px;z-index:50}
+.modal.open{display:flex}
+.modal-card{
+  max-width:640px;width:100%;background:linear-gradient(180deg,rgba(255,255,255,.02),transparent 60%),#151a2e;
+  border:1px solid #2a3356;border-radius:16px;padding:18px;color:#e7ebf3
+}
+.modal-card h3{margin:0 0 8px}
+.modal-card .hint{color:#9aa3b2;font-size:14px}
+.modal-actions{display:flex;justify-content:flex-end;margin-top:12px}

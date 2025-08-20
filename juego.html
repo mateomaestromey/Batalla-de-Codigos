@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>Batalla de Códigos – Juego</title>
+<link rel="stylesheet" href="assets/css/base.css">
+<link rel="stylesheet" href="assets/css/juego.css">
+</head>
+<body>
+<header>
+  <div class="title" id="hdr">Batalla de Códigos – En juego</div>
+  <div class="row" style="display:flex;gap:10px;flex-wrap:wrap">
+    <button class="btn" id="soundBtn" title="Sonido">🔊</button>
+    <button class="btn" id="helpBtn">Ayuda</button>
+    <button class="btn" onclick="location.href='index.html'">Volver al inicio</button>
+    <button id="resetBtn" class="btn">Reiniciar partida</button>
+  </div>
+</header>
+
+<!-- Modal de reglas -->
+<div id="helpModal" class="modal" aria-hidden="true">
+  <div class="modal-card">
+    <h3>¿Cómo se juega?</h3>
+    <p class="hint">Guía rápida:</p>
+    <ul>
+      <li>Cada jugador define un código <b>secreto de 4 dígitos</b>.</li>
+      <li>Se turnan intentando adivinar el del rival.</li>
+      <li>El defensor responde <b>“Aciertos: N”</b> = cuántos dígitos están en la <u>posición correcta</u>.</li>
+      <li>Si el que empieza adivina en <i>k</i> intentos, el otro tiene hasta <i>k</i> intentos para empatar; si no llega, gana el primero; si llega, empatan.</li>
+      <li>Al terminar, el ganador <b>publica su código</b> y el perdedor lo ve.</li>
+    </ul>
+    <div class="modal-actions">
+      <button id="closeHelp" class="btn primary">Entendido</button>
+    </div>
+  </div>
+</div>
+
+<div class="layout">
+  <aside class="panel" id="panel1">
+    <h2 id="h1" class="collapser">Historial de J1 <span class="caret">▾</span></h2>
+    <div id="hist1" class="history"></div>
+  </aside>
+
+  <main class="panel center">
+    <div class="turn"><span class="dot"></span> Turno: <b id="turnName">—</b></div>
+    <div id="status" class="status">Cargando…</div>
+
+    <!-- contador de turno -->
+    <div id="timer" class="timer" aria-live="polite">
+      <div id="timerBar" class="timerBar"></div>
+      <span id="timerText">—</span>
+    </div>
+
+    <div class="mobile-toggles">
+      <button id="toggleJ1" class="btn">Mostrar/Ocultar J1</button>
+      <button id="toggleJ2" class="btn">Mostrar/Ocultar J2</button>
+    </div>
+
+    <div style="margin-top:14px">
+      <input id="guess" type="text" inputmode="numeric" maxlength="4" placeholder="Tu intento (0000-9999)">
+      <button id="tryBtn" class="btn">Probar</button>
+      <div id="playError" class="error"></div>
+    </div>
+
+    <div id="resultArea" class="result"></div>
+  </main>
+
+  <aside class="panel" id="panel2">
+    <h2 id="h2" class="collapser">Historial de J2 <span class="caret">▾</span></h2>
+    <div id="hist2" class="history"></div>
+  </aside>
+</div>
+
+<!-- JS (módulos) -->
+<script type="module" src="assets/js/firebase-config.js"></script>
+<script type="module" src="assets/js/sound.js"></script>
+<script type="module" src="assets/js/juego.js"></script>
+</body>
+</html>
